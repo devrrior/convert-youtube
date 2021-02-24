@@ -12,7 +12,8 @@ while loop == True:
     Type: """))
 
     if option == 1:
-        pass
+        video = YoutubeDownload(url)
+        video.download_video()
     elif option == 2:
         audio = YoutubeDownload(url)
         audio.download_audio()
