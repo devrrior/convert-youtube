@@ -1,6 +1,9 @@
 from functions import choose_option, delete_cache, download_video_audio, merge_video_and_audio
 from pytube import YouTube
 
+#TODO improve the console menu (duplicate resolution)
+#TODO get de video with its name
+
 class YoutubeDownload:
 
     def __init__(self,url):
