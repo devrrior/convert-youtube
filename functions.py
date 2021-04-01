@@ -16,10 +16,20 @@ def choose_option(url):
 
     for quality in qualities_of_video:
         counter += 1
-        print(f"Resolution {counter}: Resolution: {quality.resolution}  FPS: {quality.fps}")
-        options[counter] = [quality.resolution,quality.fps]
-        last_resolution = quality.resolution
-        last_fps = quality.fps
+
+        if last_resolution == quality.resolution:
+            if  last_fps == quality.fps:
+                pass
+            else:
+                print(f"Qualities {counter}: Resolution: {quality.resolution}  FPS: {quality.fps}")
+                options[counter] = [quality.resolution,quality.fps]
+                last_resolution = quality.resolution
+                last_fps = quality.fps
+        else:
+            print(f"Qualities {counter}: Resolution: {quality.resolution}  FPS: {quality.fps}")
+            options[counter] = [quality.resolution,quality.fps]
+            last_resolution = quality.resolution
+            last_fps = quality.fps
 
     number_option = int(input("What quality do you prefer?: "))
 
@@ -33,14 +43,14 @@ def download_video_audio(url,option):
     audio = url.streams.filter(only_audio=True,file_extension="mp4")
     audio[0].download(filename="audio",output_path=".cache/")
 
-def merge_video_and_audio(url):
+def merge_video_and_audio(name):
     # Merge audio and video
     video = ffmpeg.input(f".cache/video.mp4")
     audio = ffmpeg.input(f".cache/audio.mp4")
 
-    out = ffmpeg.output(video, audio, f"/Users/fernando/Downloads/video_downloaded.mp4", vcodec="copy", acodec="aac", strict="experimental")
+    out = ffmpeg.output(video, audio, f"/Users/fernando/Downloads/{name}.mp4", vcodec="copy", acodec="aac", strict="experimental")
     out.run()
 
-def delete_cache(url):
+def delete_cache(name):
     os.remove(f".cache/video.mp4")
     os.remove(f".cache/audio.mp4")

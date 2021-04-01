@@ -1,8 +1,7 @@
 from functions import choose_option, delete_cache, download_video_audio, merge_video_and_audio
 from pytube import YouTube
 
-#TODO improve the console menu (duplicate resolution)
-#TODO get de video with its name
+#TODO Don't show the log (ffmpeg)
 
 class YoutubeDownload:
 
@@ -18,11 +17,11 @@ class YoutubeDownload:
 
     def download_video(self):
         url = YouTube(self.__url)
+        name = (url.title).replace("/","-")
         option = choose_option(url)
         download_video_audio(url,option)
-        merge_video_and_audio(url)
-        delete_cache(url)
-        print("Paso la prueba")
+        merge_video_and_audio(name)
+        delete_cache(name)
 
     def get_url(self):
         return self.__url
